@@ -1,4 +1,6 @@
 # SEM-4-labs
 
 
-#AL/DAA- algorithms lab
+#AL/DAA- Algorithms Lab
+
+#ES- Embedded Systems Lab
