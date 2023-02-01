@@ -13,7 +13,6 @@ Reset_Handler
 	LDR R3, [R0] ; Load data pointed by R0 into R3
 	STR R3,[R1] ; Store data from R3 into the address pointed by R1
 STOP B STOP ; Be there
-  ;SRC DCD 9 ;SRC location in code memory
 	AREA mydata, DATA, READWRITE
 SRC DCD 0 ;SRC location in data memory		
 DST DCD 0 ;DST location in data memory
