@@ -1,0 +1,149 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         __Vectors
+    4 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    5 00000004 00000000        DCD              Reset_Handler ; reset vector
+    6 00000008                 ALIGN
+    7 00000008                 AREA             mycode, CODE, READONLY
+    8 00000000                 ENTRY
+    9 00000000                 EXPORT           Reset_Handler
+   10 00000000         Reset_Handler
+   11 00000000 4810            LDR              R0, =SRC    ; Load address of S
+                                                            RC into R0
+   12 00000002 4911            LDR              R1, =DST    ; Load the address 
+                                                            of DST onto R1 
+   13 00000004 F04F 020A       MOV              R2, #10
+   14 00000008 F100 0024       ADD              R0, #36
+   15 0000000C 6803    LOOP    LDR              R3, [R0]    ; Load data pointed
+                                                             by R0 into R3
+   16 0000000E F841 3B04       STR              R3, [R1], #4 ; Store data from 
+                                                            R3 into the address
+                                                             pointed by R1
+   17 00000012 3A01            SUBS             R2, #1
+   18 00000014 F1A0 0004       SUB              R0, #4
+   19 00000018 D1F8            BNE              LOOP
+   20 0000001A E7FE    STOP    B                STOP        ; Be there
+   21 0000001C 00000001 
+              00000002 
+              00000003 
+              00000004 
+              00000005 
+              00000006 
+              00000007 
+              00000008 
+              00000009 
+              0000000A SRC     DCD              1,2,3,4,5,6,7,8,9,10 ;SRC locat
+                                                            ion in code memory
+   22 00000044 00000000 
+              00000000         AREA             mydata, DATA, READWRITE
+   23 00000000         ;SRC DCD 0 ;SRC location in code memory  
+   24 00000000 00000000 
+                       DST     DCD              0           ;DST location in da
+                                                            ta memory
+   25 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\q4.d -
+o.\q4.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NX
+P\LPC17xx --predefine="__EVAL SETA 1" --list=.\q4.lst q4.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file q4.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 3 in file q4.s
+   Uses
+      At line 2 in file q4.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+LOOP 0000000C
+
+Symbol: LOOP
+   Definitions
+      At line 15 in file q4.s
+   Uses
+      At line 19 in file q4.s
+Comment: LOOP used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 10 in file q4.s
+   Uses
+      At line 5 in file q4.s
+      At line 9 in file q4.s
+
+SRC 0000001C
+
+Symbol: SRC
+   Definitions
+      At line 21 in file q4.s
+   Uses
+      At line 11 in file q4.s
+Comment: SRC used once
+STOP 0000001A
+
+Symbol: STOP
+   Definitions
+      At line 20 in file q4.s
+   Uses
+      At line 20 in file q4.s
+Comment: STOP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 7 in file q4.s
+   Uses
+      None
+Comment: mycode unused
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 24 in file q4.s
+   Uses
+      At line 12 in file q4.s
+Comment: DST used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 22 in file q4.s
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+342 symbols in table
