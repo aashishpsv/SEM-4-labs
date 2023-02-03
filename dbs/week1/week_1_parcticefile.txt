@@ -1,0 +1,449 @@
+SQL*Plus: Release 12.1.0.2.0 Production on Fri Feb 3 14:10:36 2023
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: f06@cgorcl
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Enter user-name: f36@cgorcl
+Enter password:
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+
+SQL>
+SQL> create table STUDENT(
+  2  reg_no number(5),
+  3  stu_name varchar(20),
+  4  stu_age number(5),
+  5  subject1_marks number(4,2)
+  6  insert into STUDENT values(101,'aaa',16,80);
+insert into STUDENT values(101,'aaa',16,80)
+*
+ERROR at line 6:
+ORA-00907: missing right parenthesis
+
+
+SQL> create table STUDENT(
+  2  reg_no number(5),
+  3  stu_name varchar(20),
+  4  stu_age number(5),
+  5  subject1_marks number(4,2),
+  6  subject2_marks number(4,2),
+  7  subject3_marks number(4,1);
+subject3_marks number(4,1)
+                         *
+ERROR at line 7:
+ORA-00907: missing right parenthesis
+
+
+SQL> create table STUDENT(
+  2     reg_no number(5),
+  3      stu_name varchar(20),
+  4     stu_age number(5),
+  5      subject1_marks number(4,2),
+  6  subject2_marks number(4,2),
+  7  subject3_marks number(4,1));
+
+Table created.
+
+SQL> insert into STUDENT values(101,'AAA',16,80,90,98);
+
+1 row created.
+
+SQL> alter table STUDENT add(Gender char(5));
+
+Table altered.
+
+SQL> DESC STUDENT
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG_NO                                             NUMBER(5)
+ STU_NAME                                           VARCHAR2(20)
+ STU_AGE                                            NUMBER(5)
+ SUBJECT1_MARKS                                     NUMBER(4,2)
+ SUBJECT2_MARKS                                     NUMBER(4,2)
+ SUBJECT3_MARKS                                     NUMBER(4,1)
+ GENDER                                             CHAR(5)
+
+SQL> ALTER table STUDENT drop coulmn Gender
+  2  ;
+ALTER table STUDENT drop coulmn Gender
+                         *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> ALTER table STUDENT drop coulmn Gender;
+ALTER table STUDENT drop coulmn Gender
+                         *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> ALTER table STUDENT drop coulmn GENDER;
+ALTER table STUDENT drop coulmn GENDER
+                         *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> Alter table STUDENT drop coulmn GENDER;
+Alter table STUDENT drop coulmn GENDER
+                         *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> Alter table STUDENT drop column GENDER;
+
+Table altered.
+
+SQL> DESC STUDENT
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG_NO                                             NUMBER(5)
+ STU_NAME                                           VARCHAR2(20)
+ STU_AGE                                            NUMBER(5)
+ SUBJECT1_MARKS                                     NUMBER(4,2)
+ SUBJECT2_MARKS                                     NUMBER(4,2)
+ SUBJECT3_MARKS                                     NUMBER(4,1)
+
+SQL> alter table student modify(reg_no number(8));
+
+Table altered.
+
+SQL> DESC STUDENT
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG_NO                                             NUMBER(8)
+ STU_NAME                                           VARCHAR2(20)
+ STU_AGE                                            NUMBER(5)
+ SUBJECT1_MARKS                                     NUMBER(4,2)
+ SUBJECT2_MARKS                                     NUMBER(4,2)
+ SUBJECT3_MARKS                                     NUMBER(4,1)
+
+SQL> rename student to mitstudent;
+
+Table renamed.
+
+SQL> trunc table students;
+SP2-0734: unknown command beginning "trunc tabl..." - rest of line ignored.
+SQL> truncate table mitstudents
+  2  ;
+truncate table mitstudents
+               *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> truncate table mitstudents;
+truncate table mitstudents
+               *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> Truncate table mitstudents;
+Truncate table mitstudents
+               *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> Truncate table mitstudent;
+
+Table truncated.
+
+SQL> DESC STUDENT
+ERROR:
+ORA-04043: object STUDENT does not exist
+
+
+SQL> DESC MITSTUDENT
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG_NO                                             NUMBER(8)
+ STU_NAME                                           VARCHAR2(20)
+ STU_AGE                                            NUMBER(5)
+ SUBJECT1_MARKS                                     NUMBER(4,2)
+ SUBJECT2_MARKS                                     NUMBER(4,2)
+ SUBJECT3_MARKS                                     NUMBER(4,1)
+
+SQL> insert into STUDENT values(101,'AAA',16,80,90,98);
+insert into STUDENT values(101,'AAA',16,80,90,98)
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> insert into mitSTUDENT values(101,'AAA',16,80,90,98);
+
+1 row created.
+
+SQL> select * from MITSTUDENT;
+
+    REG_NO STU_NAME                STU_AGE SUBJECT1_MARKS SUBJECT2_MARKS
+---------- -------------------- ---------- -------------- --------------
+SUBJECT3_MARKS
+--------------
+       101 AAA                          16             80             90
+            98
+
+
+SQL> Truncate table mitstudent;
+
+Table truncated.
+
+SQL> DESC MITSTUDENT
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG_NO                                             NUMBER(8)
+ STU_NAME                                           VARCHAR2(20)
+ STU_AGE                                            NUMBER(5)
+ SUBJECT1_MARKS                                     NUMBER(4,2)
+ SUBJECT2_MARKS                                     NUMBER(4,2)
+ SUBJECT3_MARKS                                     NUMBER(4,1)
+
+SQL> select * from MITSTUDENT;
+
+no rows selected
+
+SQL> insert into STUDENT values(101,'AAA',16,80,90,98);
+insert into STUDENT values(101,'AAA',16,80,90,98)
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> insert into MITSTUDENT values(101,'AAA',16,80,90,98);
+
+1 row created.
+
+SQL> insert into MITSTUDENT values(102,'BBB',26,50,70,58);
+
+1 row created.
+
+SQL>  insert into MITSTUDENT values(103,'CCC',56,30,60,28;
+ insert into MITSTUDENT values(103,'CCC',56,30,60,28
+                                                   *
+ERROR at line 1:
+ORA-00917: missing comma
+
+
+SQL>  insert into MITSTUDENT values(103,'CCC',56,30,60,28);
+
+1 row created.
+
+SQL> select * from MITSTUDENT;
+
+    REG_NO STU_NAME                STU_AGE SUBJECT1_MARKS SUBJECT2_MARKS
+---------- -------------------- ---------- -------------- --------------
+SUBJECT3_MARKS
+--------------
+       101 AAA                          16             80             90
+            98
+
+       102 BBB                          26             50             70
+            58
+
+       103 CCC                          56             30             60
+            28
+
+
+SQL> select * from MITSTUDENT;
+
+    REG_NO STU_NAME                STU_AGE SUBJECT1_MARKS SUBJECT2_MARKS
+---------- -------------------- ---------- -------------- --------------
+SUBJECT3_MARKS
+--------------
+       101 AAA                          16             80             90
+            98
+
+       102 BBB                          26             50             70
+            58
+
+       103 CCC                          56             30             60
+            28
+
+
+SQL> ALTER TABLE MITSTUDENT ADD(gender char(5));
+
+Table altered.
+
+SQL> select * from MITSTUDENT;
+
+    REG_NO STU_NAME                STU_AGE SUBJECT1_MARKS SUBJECT2_MARKS
+---------- -------------------- ---------- -------------- --------------
+SUBJECT3_MARKS GENDE
+-------------- -----
+       101 AAA                          16             80             90
+            98
+
+       102 BBB                          26             50             70
+            58
+
+       103 CCC                          56             30             60
+            28
+
+
+SQL> select stu_age student_age from student;
+select stu_age student_age from student
+                                *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> Select stu_age student_age from student;
+Select stu_age student_age from student
+                                *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> Select stu_age student_age from mitstudent;
+
+STUDENT_AGE
+-----------
+         16
+         26
+         56
+
+SQL> desc mitstudent
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG_NO                                             NUMBER(8)
+ STU_NAME                                           VARCHAR2(20)
+ STU_AGE                                            NUMBER(5)
+ SUBJECT1_MARKS                                     NUMBER(4,2)
+ SUBJECT2_MARKS                                     NUMBER(4,2)
+ SUBJECT3_MARKS                                     NUMBER(4,1)
+ GENDER                                             CHAR(5)
+
+SQL> select subject1_marks+subject2_marks+subject3_marks total_grade from mitstudent
+  2  ;
+
+TOTAL_GRADE
+-----------
+        268
+        178
+        118
+
+SQL> insert into mitstudent(1210,'ddd',19,60,70,80,'male');
+insert into mitstudent(1210,'ddd',19,60,70,80,'male')
+                       *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into mitstudent values(1210,'ddd',19,60,70,80,'male');
+
+1 row created.
+
+SQL> select * from mitstudents
+  2  ;
+select * from mitstudents
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from mitstudents;
+select * from mitstudents
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from mitstudent;
+
+    REG_NO STU_NAME                STU_AGE SUBJECT1_MARKS SUBJECT2_MARKS
+---------- -------------------- ---------- -------------- --------------
+SUBJECT3_MARKS GENDE
+-------------- -----
+       101 AAA                          16             80             90
+            98
+
+       102 BBB                          26             50             70
+            58
+
+       103 CCC                          56             30             60
+            28
+
+
+    REG_NO STU_NAME                STU_AGE SUBJECT1_MARKS SUBJECT2_MARKS
+---------- -------------------- ---------- -------------- --------------
+SUBJECT3_MARKS GENDE
+-------------- -----
+      1210 ddd                          19             60             70
+            80 male
+
+
+SQL> delete from mitstudent where stu_age=26;
+
+1 row deleted.
+
+SQL> select * from mitstudent;
+
+    REG_NO STU_NAME                STU_AGE SUBJECT1_MARKS SUBJECT2_MARKS
+---------- -------------------- ---------- -------------- --------------
+SUBJECT3_MARKS GENDE
+-------------- -----
+       101 AAA                          16             80             90
+            98
+
+       103 CCC                          56             30             60
+            28
+
+      1210 ddd                          19             60             70
+            80 male
+
+
+SQL> update mitstudents set gender='male';
+update mitstudents set gender='male'
+       *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> update mitstudent set gender='male';
+
+3 rows updated.
+
+SQL> select * from mitstudent;
+
+    REG_NO STU_NAME                STU_AGE SUBJECT1_MARKS SUBJECT2_MARKS
+---------- -------------------- ---------- -------------- --------------
+SUBJECT3_MARKS GENDE
+-------------- -----
+       101 AAA                          16             80             90
+            98 male
+
+       103 CCC                          56             30             60
+            28 male
+
+      1210 ddd                          19             60             70
+            80 male
+
+
+SQL> update mitstudent set stu_name='my name is' where reg_no=103;
+
+1 row updated.
+
+SQL> select * from mitstudent;
+
+    REG_NO STU_NAME                STU_AGE SUBJECT1_MARKS SUBJECT2_MARKS
+---------- -------------------- ---------- -------------- --------------
+SUBJECT3_MARKS GENDE
+-------------- -----
+       101 AAA                          16             80             90
+            98 male
+
+       103 my name is                   56             30             60
+            28 male
+
+      1210 ddd                          19             60             70
+            80 male
