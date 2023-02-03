@@ -1,0 +1,168 @@
+//q1.)create employee table
+SQL> create table Employee(
+  2  emp_no number(3),
+  3  emp_name varchar(20),
+  4  emp_address varchar(30));
+
+Table created.
+
+//q2.)insert five employees info
+
+SQL> insert into employee values(001,'emp 1','home');
+
+1 row created.
+
+SQL> insert into employee values(002,'emp 2','hotel...trivago');
+
+1 row created.
+
+SQL> insert into employee values(003,'emp 3','stanza living');
+
+1 row created.
+
+SQL> insert into employee values(004,'emp 4','hostel 69');
+
+1 row created.
+
+SQL> insert into employee values(005,'emp 5','mugen train');
+
+1 row created.
+
+//q3.)display names of employee
+
+SQL> select emp_name employee_name from employee
+  2  ;
+
+EMPLOYEE_NAME
+--------------------
+emp 1
+emp 2
+emp 3
+emp 4
+emp 5
+
+//q4.)diasplay all employees from 'stanza living'
+
+
+
+SQL> select * from employee where emp_address='stanza living';
+
+    EMP_NO EMP_NAME             EMP_ADDRESS
+---------- -------------------- ------------------------------
+         3 emp 3                stanza living
+		 
+//q5.)add coulmn salary to table
+
+SQL> alter table employee add(salary number(10));
+
+Table altered.
+
+SQL> desc employee
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_NO                                             NUMBER(3)
+ EMP_NAME                                           VARCHAR2(20)
+ EMP_ADDRESS                                        VARCHAR2(30)
+ SALARY                                             NUMBER(10)
+ 
+//q6.)assign salary to all
+
+SQL> update employee set salary='10000' where emp_no=1;
+
+1 row updated.
+
+SQL> select * from employee;
+
+    EMP_NO EMP_NAME             EMP_ADDRESS                        SALARY
+---------- -------------------- ------------------------------ ----------
+         1 emp 1                home                                10000
+         2 emp 2                hotel...trivago
+         3 emp 3                stanza living
+         4 emp 4                hostel 69
+         5 emp 5                mugen train
+
+SQL> update employee set salary='20000' where emp_no=2;
+
+1 row updated.
+
+SQL> update employee set salary='30000' where emp_no=3;
+
+1 row updated.
+
+SQL> update employee set salary='40000' where emp_no=4;
+
+1 row updated.
+
+SQL> update employee set salary='50000' where emp_no=5;
+
+1 row updated.
+
+SQL> select * from employee;
+
+    EMP_NO EMP_NAME             EMP_ADDRESS                        SALARY
+---------- -------------------- ------------------------------ ----------
+         1 emp 1                home                                10000
+         2 emp 2                hotel...trivago                     20000
+         3 emp 3                stanza living                       30000
+         4 emp 4                hostel 69                           40000
+         5 emp 5                mugen train                         50000
+
+
+//q7)structure using desc
+SQL> desc employee
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_NO                                             NUMBER(3)
+ EMP_NAME                                           VARCHAR2(20)
+ EMP_ADDRESS                                        VARCHAR2(30)
+ SALARY                                             NUMBER(10)
+
+//q8)delete emp from "hostel 69"
+
+SQL> delete from employee where emp_address='hostel 69';
+
+1 row deleted.
+
+SQL> select * from employee;
+
+    EMP_NO EMP_NAME             EMP_ADDRESS                        SALARY
+---------- -------------------- ------------------------------ ----------
+         1 emp 1                home                                10000
+         2 emp 2                hotel...trivago                     20000
+         3 emp 3                stanza living                       30000
+         5 emp 5                mugen train                         50000
+		 
+//q9.)rename an employee
+SQL> update employee set emp_name='emp 4' where emp_name='emp 5';
+
+1 row updated.
+
+SQL> select * from employee;
+
+    EMP_NO EMP_NAME             EMP_ADDRESS                        SALARY
+---------- -------------------- ------------------------------ ----------
+         1 emp 1                home                                10000
+         2 emp 2                hotel...trivago                     20000
+         3 emp 3                stanza living                       30000
+         5 emp 4                mugen train                         50000
+
+q.10) drop acolumn and then drop a table
+SQL> alter table employee drop column salary;
+
+Table altered.
+
+SQL> select * from employee;
+
+    EMP_NO EMP_NAME             EMP_ADDRESS
+---------- -------------------- ------------------------------
+         1 emp 1                home
+         2 emp 2                hotel...trivago
+         3 emp 3                stanza living
+         5 emp 4                mugen train
+
+SQL>SQL> delete from employee
+  2  ;
+
+4 rows deleted.
+
+SQL>
