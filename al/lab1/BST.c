@@ -97,5 +97,5 @@ void main(){
         case 4: preorder(root);
                 break;
       }
-    }while(ch!=6);
+    }while(ch!=5);
 }
