@@ -1,0 +1,30 @@
+
+unsigned int * primenumbers(unsigned int m){
+         int a[m];
+         int *L = malloc(100*sizeof(int));
+
+         for(int i=2;i<m;i++){
+         	a[i]=i;
+         }
+
+         for(int j=2;j<(sqrt(m));j++)
+            {
+         	  if a[j]!=0
+         	  	  int k=j*j;
+
+         	  while(k<=m)
+         	  	  a[k]=0;
+         	  	  k=k+j;
+         	}
+
+         int i=0;
+         for(int y=0;y<m;y++){
+         	if(a[y]!=0){
+              L[i]=a[y];
+               i++;
+
+         	}
+
+         }
+      return L;
+}
