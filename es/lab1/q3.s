@@ -11,8 +11,8 @@ Reset_Handler
 	LDR R0, =SRC ; Load address of SRC into R0
 	LDR R1, =DST ; Load the address of DST onto R1 
 	MOV R2, #10
-LOOP	LDR R3, [R0],#4 ; Load data pointed by R0 into R3
-	STR R3, [R1], #4 ; Store data from R3 into the address pointed by R1
+LOOP	LDR R3, [R0],#4 
+	STR R3, [R1], #4 
   SUBS R2, #1
 	BNE LOOP 
 STOP B STOP ; Be there
