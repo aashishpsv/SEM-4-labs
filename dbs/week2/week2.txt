@@ -1,0 +1,1051 @@
+ q1)
+create table employee2(
+    emp_no number(3) primary key,
+    emp_name varchar(20) NOT NULL,
+    gender varchar(20) NOT NULL,
+    salary number(5) NOT NULL,
+    address varchar(30) NOT NULL,
+    DNO number(5),
+    check(gender in ('M','F')) );
+
+q2)
+ insert into employee2 values(001,'emp1','M',5000,'addrs 1',12345);
+ insert into employee2 values(002,'emp2','M',6000,'addrs 2',22345);
+ insert into employee2 values(003,'emp3','F',7000,'addrs 3',32345);
+ insert into employee2 values(004,'emp4','M',8000,'addrs 4',42345);
+
+
+q2)
+  create table department(
+    deptno number(5) primary key,
+    deptname varchar(20) unique ); 
+q3)
+//alter table employee2 
+//add foreign key (DNO) references department(deptno);
+SQL> alter table employee2
+      add constraint fk_dn
+  2  foreign key (DNO) references department(deptno);
+
+Table altered.
+
+
+q4)
+insert into department values (12345,'department 1');
+insert into department values (22345,'department 2');
+insert into department values (32345,'department 3');
+insert into department values (42345,'department 4');
+
+
+SQL> insert into department values (12345,'department 1');
+
+1 row created.
+
+SQL> insert into department values (22345,'department 2');
+
+1 row created.
+
+SQL> insert into department values (32345,'department 3');
+
+1 row created.
+
+SQL> insert into department values (42345,'department 4');
+
+1 row created.
+
+SQL> insert into employee2 values(001,'emp1','M',5000,'addrs 1',12345);
+
+1 row created.
+
+SQL>  insert into employee2 values(002,'emp2','M',6000,'addrs 2',22345);
+
+1 row created.
+
+SQL> insert into employee2 values(003,'emp3','F',7000,'addrs 3',32345);
+
+1 row created.
+
+SQL> insert into employee2 values(004,'emp4','M',8000,'addrs 4',42345);
+
+1 row created.
+
+q5) and q6)
+
+SQL> insert into employee2 values(004,'emp4','M',8000,'addrs 4',42345);
+insert into employee2 values(004,'emp4','M',8000,'addrs 4',42345)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (F36.SYS_C0016158) violated
+
+
+SQL> insert into department values (32345,'department 3');
+insert into department values (32345,'department 3')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (F36.SYS_C0016250) violated
+
+
+SQL> insert into department values (52345,'department 5');
+
+1 row created.
+
+SQL> insert into employee2 values(005,'emp5','M',9000,'addrs 5',52345);
+
+1 row created.
+
+
+q7)
+SQL> alter table employee2 
+drop constraint fk_dn ;
+
+Table altered.
+
+SQL> alter table employee2 add(DNo number(5) references Department(deptno) on delete cascade) ;
+
+Table altered.
+
+
+q8)
+SQL> alter table EMPLOYEE2 modify Salary default 10000;
+
+Table altered.
+
+SQL> insert into employee2(emp_no,emp_name,gender,address,dno) values(7,'emp2','M','addrs 2',32345);
+
+1 row created.
+
+
+
+
+
+q9)
+SQL> @C:\Users\student\Downloads\University.sql
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> select name,dept_name from Student
+  2  ;
+
+no rows selected
+
+SQL> select name,dept_name from student;
+
+no rows selected
+
+SQL> @D:\210905212\week2\smallRelations.sql
+
+0 rows deleted.
+
+
+0 rows deleted.
+
+
+0 rows deleted.
+
+
+0 rows deleted.
+
+
+0 rows deleted.
+
+
+0 rows deleted.
+
+
+0 rows deleted.
+
+
+0 rows deleted.
+
+
+0 rows deleted.
+
+
+0 rows deleted.
+
+
+0 rows deleted.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+q9)
+SQL> select name,dept_name from student;
+
+NAME                 DEPT_NAME
+-------------------- --------------------
+Zhang                Comp. Sci.
+Shankar              Comp. Sci.
+Brandt               History
+Chavez               Finance
+Peltier              Physics
+Levy                 Physics
+Williams             Comp. Sci.
+Sanchez              Music
+Snow                 Physics
+Brown                Comp. Sci.
+Aoi                  Elec. Eng.
+
+NAME                 DEPT_NAME
+-------------------- --------------------
+Bourikas             Elec. Eng.
+Tanaka               Biology
+
+13 rows selected.
+
+q10)SQL> select * from instructor where dept_name='Comp. Sci.'  ;
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+10101 Srinivasan           Comp. Sci.                65000
+45565 Katz                 Comp. Sci.                75000
+83821 Brandt               Comp. Sci.                92000
+
+
+11)
+
+SQL> select title from course where dept_name='Comp. Sci.' and credits=3 ;
+
+TITLE
+--------------------------------------------------
+Robotics
+Image Processing
+Database System Concepts
+
+
+13)
+SQL> select * from instructor where salary between 40000 and 90000 ;
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+10101 Srinivasan           Comp. Sci.                65000
+12121 Wu                   Finance                   90000
+15151 Mozart               Music                     40000
+32343 El Said              History                   60000
+33456 Gold                 Physics                   87000
+45565 Katz                 Comp. Sci.                75000
+58583 Califieri            History                   62000
+76543 Singh                Finance                   80000
+76766 Crick                Biology                   72000
+98345 Kim                  Elec. Eng.                80000
+
+10 rows selected.\
+
+
+
+18) 
+SQL> select name from instructor where name like '%ch%' ;
+
+no rows selected
+
+SQL> select name from instructor where name like '%ni%' ;
+
+NAME
+--------------------
+Srinivasan
+
+
+
+
+19)SQL> select name , length(name) from student ;
+
+NAME                 LENGTH(NAME)
+-------------------- ------------
+Zhang                           5
+Shankar                         7
+Brandt                          6
+Chavez                          6
+Peltier                         7
+Levy                            4
+Williams                        8
+Sanchez                         7
+Snow                            4
+Brown                           5
+Aoi                             3
+
+NAME                 LENGTH(NAME)
+-------------------- ------------
+Bourikas                        8
+Tanaka                          6
+
+13 rows selected.
+
+
+
+
+20)
+SQL> select dept_name,substr(dept_name,3) from student
+  2  ;
+
+DEPT_NAME
+--------------------
+SUBSTR(DEPT_NAME,3)
+------------------------------------------------------------------------
+Comp. Sci.
+mp. Sci.
+
+Comp. Sci.
+mp. Sci.
+
+History
+story
+
+
+DEPT_NAME
+--------------------
+SUBSTR(DEPT_NAME,3)
+------------------------------------------------------------------------
+Finance
+nance
+
+Physics
+ysics
+
+Physics
+ysics
+
+
+DEPT_NAME
+--------------------
+SUBSTR(DEPT_NAME,3)
+------------------------------------------------------------------------
+Comp. Sci.
+mp. Sci.
+
+Music
+sic
+
+Physics
+ysics
+
+
+DEPT_NAME
+--------------------
+SUBSTR(DEPT_NAME,3)
+------------------------------------------------------------------------
+Comp. Sci.
+mp. Sci.
+
+Elec. Eng.
+ec. Eng.
+
+Elec. Eng.
+ec. Eng.
+
+
+DEPT_NAME
+--------------------
+SUBSTR(DEPT_NAME,3)
+------------------------------------------------------------------------
+Biology
+ology
+
+
+13 rows selected.
+
+21)
+
+
+SQL> select upper(name) from instructor ;
+
+UPPER(NAME)
+--------------------
+SRINIVASAN
+WU
+MOZART
+EINSTEIN
+EL SAID
+GOLD
+KATZ
+CALIFIERI
+SINGH
+CRICK
+BRANDT
+
+UPPER(NAME)
+--------------------
+KIM
+
+12 rows selected.
+
+
+22)
+SQL> select NVL(name,0) from student;
+
+NVL(NAME,0)
+--------------------
+Zhang
+Shankar
+Brandt
+Chavez
+Peltier
+Levy
+Williams
+Sanchez
+Snow
+Brown
+Aoi
+
+NVL(NAME,0)
+--------------------
+Bourikas
+Tanaka
+
+13 rows selected.
+
+
+23)
+SQL> 
+
+    SALARY ROUND(SALARY/3,2)
+---------- -----------------
+     65000          21666.67
+     90000             30000
+     40000          13333.33
+     95000          31666.67
+     60000             20000
+     87000             29000
+     75000             25000
+     62000          20666.67
+     80000          26666.67
+     72000             24000
+     92000          30666.67
+
+    SALARY ROUND(SALARY/3,2)
+---------- -----------------
+     80000          26666.67
+
+12 rows selected.
+
+24.)
+
+24. 
+
+select to_char(DOB,'DD-MON-YYYY') from employee;
+
+TO_CHAR(DOB,'DD-MON-
+--------------------
+03-MAR-2003
+02-MAR-2003
+02-JAN-2003
+select to_char(DOB,'DD-MON-YY') from employee;
+TO_CHAR(DOB,'DD-MO
+------------------
+03-MAR-03
+02-MAR-03
+02-JAN-03
+
+select to_char(DOB,'DD-MM-YY') from employee;
+
+TO_CHAR(
+--------
+03-03-03
+02-03-03
+02-01-03
+
+
+25. 
+select empname, to_char(DOB, 'YEAR') from employee;
+
+EMPNAME
+--------------------------------------------------
+TO_CHAR(DOB,'YEAR')
+------------------------------------------
+Emp1
+TWO THOUSAND THREE
+
+Emp2
+TWO THOUSAND THREE
+
+Emp3
+TWO THOUSAND THREE
+
+select empname, to_char(DOB, 'Year') from employee;
+
+EMPNAME
+--------------------------------------------------
+TO_CHAR(DOB,'YEAR')
+------------------------------------------
+Emp1
+Two Thousand Three
+
+Emp2
+Two Thousand Three
+
+Emp3
+Two Thousand Three
+
+ select empname, to_char(DOB, 'year') from employee;
+
+EMPNAME
+--------------------------------------------------
+TO_CHAR(DOB,'YEAR')
+------------------------------------------
+Emp1
+two thousand three
+
+Emp2
+two thousand three
+
+Emp3
+two thousand three
+
+26. 
+
+select empname, to_char(DOB, 'DAY') from employee;
+
+EMPNAME
+--------------------------------------------------
+TO_CHAR(DOB,'DAY')
+------------------------------------
+Emp1
+MONDAY
+
+Emp2
+SUNDAY
+
+Emp3
+THURSDAY
+
+
+SQL> select empname, to_char(DOB, 'Day') from employee;
+
+EMPNAME
+--------------------------------------------------
+TO_CHAR(DOB,'DAY')
+------------------------------------
+Emp1
+Monday
+
+Emp2
+Sunday
+
+Emp3
+Thursday
+
+
+
+
+ select empname,to_char(DOB, 'MONTH') from employee;
+
+EMPNAME
+--------------------------------------------------
+TO_CHAR(DOB,'MONTH')
+------------------------------------
+Emp1
+MARCH
+
+Emp2
+MARCH
+
+Emp3
+JANUARY
+
+select empname,to_char(DOB, 'Month') from employee;
+
+EMPNAME
+--------------------------------------------------
+TO_CHAR(DOB,'MONTH')
+------------------------------------
+Emp1
+March
+
+Emp2
+March
+
+Emp3
+January
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
