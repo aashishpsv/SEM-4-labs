@@ -1,0 +1,25 @@
+SQL> SELECT course.course_id FROM course WHERE course.course_id NOT IN (SELECT takes.course_id FROM takes);
+
+COURSE_I
+--------
+BIO-399
+
+SQL> SELECT s1.course_id FROM section s1 WHERE semester = 'Fall' AND year = 2009 AND s1.course_id IN (SELECT s2.course_id FROM section s2 WHERE semester = 'Spring' and year = 2010 );
+
+COURSE_I
+--------
+CS-101
+
+SQL> SELECT s1.course_id FROM section s1 WHERE semester = 'Fall' AND year = 2009 AND s1.course_id NOT IN (SELECT s2.course_id FROM section s2 WHERE semester = 'Spring' and year = 2010 );
+
+COURSE_I
+--------
+CS-347
+PHY-101
+
+SQL> SELECT s1.course_id FROM section s1 WHERE semester = 'Fall' AND year = 2009 AND s1.course_id NOT IN (SELECT s2.course_id FROM section s2 WHERE semester = 'Spring' and year = 2010 );
+
+COURSE_I
+--------
+CS-347
+PHY-101
