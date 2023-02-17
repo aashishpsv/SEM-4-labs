@@ -1,0 +1,268 @@
+q12)
+SQL>  Select title,course_id from course natural join takes where ID=12345;
+
+TITLE                                              COURSE_I
+-------------------------------------------------- --------
+Intro. to Computer Science                         CS-101
+Game Design                                        CS-190
+Robotics                                           CS-315
+Database System Concepts                           CS-347
+
+sqL>  Select title,course_id from course natural join takes where ID=23121;
+
+TITLE                                              COURSE_I
+-------------------------------------------------- --------
+Investment Banking                                 FIN-201
+
+
+q14)SQL> (select id from instructor) minus (select id from teaches) ;
+
+ID
+-----
+33456
+58583
+76543
+
+
+
+q15)
+
+SQL> select name,title,section.year,section.room_number from student,section,course,takes where section.course_id=course.course_id and takes.course_id=course.course_id and section.room_number=514;
+
+NAME                 TITLE
+-------------------- --------------------------------------------------
+      YEAR ROOM_NU
+---------- -------
+Zhang                World History
+      2010 514
+
+Shankar              World History
+      2010 514
+
+Brandt               World History
+      2010 514
+
+
+NAME                 TITLE
+-------------------- --------------------------------------------------
+      YEAR ROOM_NU
+---------- -------
+Chavez               World History
+      2010 514
+
+Peltier              World History
+      2010 514
+
+Levy                 World History
+      2010 514
+
+
+NAME                 TITLE
+-------------------- --------------------------------------------------
+      YEAR ROOM_NU
+---------- -------
+Williams             World History
+      2010 514
+
+Sanchez              World History
+      2010 514
+
+Snow                 World History
+      2010 514
+
+
+NAME                 TITLE
+-------------------- --------------------------------------------------
+      YEAR ROOM_NU
+---------- -------
+Brown                World History
+      2010 514
+
+Aoi                  World History
+      2010 514
+
+Bourikas             World History
+      2010 514
+
+
+NAME                 TITLE
+-------------------- --------------------------------------------------
+      YEAR ROOM_NU
+---------- -------
+Tanaka               World History
+      2010 514
+
+Zhang                Intro. to Biology
+      2009 514
+
+Shankar              Intro. to Biology
+      2009 514
+
+
+NAME                 TITLE
+-------------------- --------------------------------------------------
+      YEAR ROOM_NU
+---------- -------
+Brandt               Intro. to Biology
+      2009 514
+
+Chavez               Intro. to Biology
+      2009 514
+
+Peltier              Intro. to Biology
+      2009 514
+
+
+NAME                 TITLE
+-------------------- --------------------------------------------------
+      YEAR ROOM_NU
+---------- -------
+Levy                 Intro. to Biology
+      2009 514
+
+Williams             Intro. to Biology
+      2009 514
+
+Sanchez              Intro. to Biology
+      2009 514
+
+
+NAME                 TITLE
+-------------------- --------------------------------------------------
+      YEAR ROOM_NU
+---------- -------
+Snow                 Intro. to Biology
+      2009 514
+
+Brown                Intro. to Biology
+      2009 514
+
+Aoi                  Intro. to Biology
+      2009 514
+
+
+NAME                 TITLE
+-------------------- --------------------------------------------------
+      YEAR ROOM_NU
+---------- -------
+Bourikas             Intro. to Biology
+      2009 514
+
+Tanaka               Intro. to Biology
+      2009 514
+
+Zhang                Genetics
+      2010 514
+
+
+NAME                 TITLE
+-------------------- --------------------------------------------------
+      YEAR ROOM_NU
+---------- -------
+Shankar              Genetics
+      2010 514
+
+Brandt               Genetics
+      2010 514
+
+Chavez               Genetics
+      2010 514
+
+
+NAME                 TITLE
+-------------------- --------------------------------------------------
+      YEAR ROOM_NU
+---------- -------
+Peltier              Genetics
+      2010 514
+
+Levy                 Genetics
+      2010 514
+
+Williams             Genetics
+      2010 514
+
+
+NAME                 TITLE
+-------------------- --------------------------------------------------
+      YEAR ROOM_NU
+---------- -------
+Sanchez              Genetics
+      2010 514
+
+Snow                 Genetics
+      2010 514
+
+Brown                Genetics
+      2010 514
+
+
+NAME                 TITLE
+-------------------- --------------------------------------------------
+      YEAR ROOM_NU
+---------- -------
+Aoi                  Genetics
+      2010 514
+
+Bourikas             Genetics
+      2010 514
+
+Tanaka               Genetics
+      2010 514
+
+
+39 rows selected.
+
+
+q16)
+SQL> select name,course.course_id,course.title as c_name from student,takes,course where student.id=takes.id and takes.course_id=course.course_id and takes.year=2009 ;
+
+NAME                 COURSE_I C_NAME
+-------------------- -------- --------------------------------------------------
+Zhang                CS-101   Intro. to Computer Science
+Zhang                CS-347   Database System Concepts
+Shankar              CS-101   Intro. to Computer Science
+Shankar              CS-190   Game Design
+Shankar              CS-347   Database System Concepts
+Peltier              PHY-101  Physical Principles
+Levy                 CS-101   Intro. to Computer Science
+Williams             CS-101   Intro. to Computer Science
+Williams             CS-190   Game Design
+Brown                CS-101   Intro. to Computer Science
+Aoi                  EE-181   Intro. to Digital Systems
+
+NAME                 COURSE_I C_NAME
+-------------------- -------- --------------------------------------------------
+Bourikas             CS-101   Intro. to Computer Science
+Tanaka               BIO-101  Intro. to Biology
+
+13 rows selected.
+
+q17)
+SQL> select name,salary as inst_salary from instructor where salary > some(
+  2  select salary from instructor
+  3  where dept_name='Comp. Sci.');
+
+NAME                 INST_SALARY
+-------------------- -----------
+Einstein                   95000
+Brandt                     92000
+Wu                         90000
+Gold                       87000
+Kim                        80000
+Singh                      80000
+Katz                       75000
+Crick                      72000
+
+SQL> select * from instructor where dept_name='Comp. Sci.';
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+10101 Srinivasan           Comp. Sci.                65000
+45565 Katz                 Comp. Sci.                75000
+83821 Brandt               Comp. Sci.                92000
+
+
+
+
+
