@@ -46,9 +46,16 @@ int main(){
           printf("\n");
        }
 
+       int k;
+
        for(i=0;i<m;i++){
-          for(j=0;j<q;j++){
-            c[i][j]=a[i][j]*b[i][j];
+       	for(k=0;k<q;k++){
+       		int sum=0;
+          for(j=0;j<n;j++){
+
+            c[i][k]=a[i][j]*b[j][k]+sum;
+            sum=c[i][k];
+          }
           }
        }
 
