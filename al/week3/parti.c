@@ -47,11 +47,16 @@ bool findPartiion(int arr[], int n)
 int main()
 {
 	//int arr[] = { 3, 1, 1, 2, 2, 1 };
+	int n;
 	printf("enter no of ele of array");
-	scanf("%d",&)
-	int n = sizeof(arr) / sizeof(arr[0]);
+	scanf("%d",&n);
+	int arr[n];
+	printf("enter array elements");
+	for(int i=0;i<n;i++){
+		scanf("%d",&arr[i]);
+	}
 
-	// Function call
+	//int n = sizeof(arr) / sizeof(arr[0]);
 	if (findPartiion(arr, n) == true)
 		printf(
 			"Can be divided into two subsets of equal sum");
@@ -61,3 +66,4 @@ int main()
 	getchar();
 	return 0;
 }
+
