@@ -1,0 +1,139 @@
+q8)
+SQL> SELECT student.name FROM student WHERE student.name IN (SELECT instructor.name FROM instructor);
+
+NAME
+--------------------
+Brandt
+
+
+q9)
+
+SQL> SELECT i1.name FROM instructor i1 WHERE i1.salary > SOME(SELECT i2.salary FROM instructor i2 WHERE i2.dept_name = 'Biology');
+
+NAME
+--------------------
+Einstein
+Brandt
+Wu
+Gold
+Kim
+Singh
+Katz
+
+7 rows selected.
+
+
+q10_)
+
+SQL> SELECT i1.name FROM instructor i1 WHERE i1.salary > ALL(SELECT i2.salary FROM instructor i2 WHERE i2.dept_name = 'Biology');
+
+NAME
+--------------------
+Katz
+Singh
+Kim
+Gold
+Wu
+Brandt
+Einstein
+
+7 rows selected.
+
+
+
+q13)
+
+ 
+
+SQL> select course_id from section s where semester='Fall' and year=2009 and exists(select * from section t where semester='Spring' and year=2010 and s.course_id=t.course_id);
+
+COURSE_I
+--------
+CS-101
+
+
+
+q14)
+
+
+     select name, id from student where exists( select id from takes, course  where course.course_id = takes.course_id and dept_name ='Biology' and  student.id = takes.id);
+
+NAME                 ID
+-------------------- -----
+Tanaka               98988
+
+
+
+q15)
+
+
+SQL>  select t.course_id from takes t where t.year=2009 and exists(select count(course_id) from takes ta group by course_id having count(course_id)<=1 and t.course_id=ta.course_id);
+
+COURSE_I
+--------
+PHY-101
+EE-181
+BIO-101
+
+
+q16)
+
+
+
+
+select name from student s where 2<=(select count(id) from takes t, course c where s.id= t.id and t.course_id=c.course_id and c.dept_name ='Comp. Sci.');
+
+NAME
+--------------------
+Zhang
+Shankar
+Levy
+Williams
+Brown
+Bourikas
+
+6 rows selected.
+
+
+
+q17)
+
+
+SQL> select dept_name,avg_salary from (select dept_name,avg(salary) avg_salary from instructor group by dept_name) where avg_salary>42000;
+
+DEPT_NAME            AVG_SALARY
+-------------------- ----------
+Comp. Sci.           77333.3333
+Biology                   72000
+History                   61000
+Finance                   85000
+Elec. Eng.                80000
+Physics                   91000
+
+6 rows selected.
+
+
+q18)
+
+
+SQL>  CREATE VIEW all_courses as SELECT section.course_id, building, room_number FROM section, course WHERE semester = 'Fall' AND year = 2009 AND section.course_id = course.course_id AND dept_name = 'Physics';
+
+View created.
+
+
+q19)
+
+
+SQL> SELECT course_id FROM all_courses;
+
+COURSE_I
+--------
+PHY-101
+
+
+q20)
+
+SQL>  CREATE VIEW department_total_salary as SELECT dept_name, SUM(salary) sum_sal FROM instructor GROUP BY dept_name;
+
+View created.
+

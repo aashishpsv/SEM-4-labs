@@ -1,0 +1,70 @@
+q1)
+SQL> (SELECT course_id FROM section WHERE semester = 'Fall' AND year = 2009 ) UNION (SELECT course_id FROM section WHERE semester = 'Spring' and year = 2010 );
+
+COURSE_I
+--------
+CS-101
+CS-315
+CS-319
+CS-347
+FIN-201
+HIS-351
+MU-199
+PHY-101
+
+8 rows selected.
+
+
+q2)
+SQL> (SELECT course_id FROM section WHERE semester = 'Fall' AND year = 2009 ) INTERSECT (SELECT course_id FROM section WHERE semester = 'Spring' and year = 2010 );
+
+COURSE_I
+--------
+CS-101
+
+
+q3)
+SQL> (SELECT course_id FROM section WHERE semester = 'Fall' AND year = 2009 ) MINUS (SELECT course_id FROM section WHERE semester = 'Spring' and year = 2010 );
+
+COURSE_I
+--------
+CS-347
+PHY-101
+
+
+q4)
+ (SELECT COURSE_ID FROM course) minus (select course_id from takes) ;
+
+COURSE_I
+--------
+BIO-399
+
+q5)
+SQL> select course_id from section where semester='Fall' and year=2009 and course_id in (select course_id from section where semester='Spring' and year=2010);
+
+COURSE_I
+--------
+CS-101
+
+q6)
+
+SQL> select count(unique takes.id)
+  2  from takes
+  3  where takes.course_id in(
+  4  select teaches.course_id
+  5  from teaches
+  6  where teaches.id=10101);
+
+COUNT(UNIQUETAKES.ID)
+---------------------
+                    6
+
+q7)
+SQL> select course_id from section where semester='Fall' and year=2009 and course_id not in (select course_id from section where semester='Spring' and year=2010);
+
+COURSE_I
+--------
+CS-347
+PHY-101
+
+
