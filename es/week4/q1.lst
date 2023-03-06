@@ -1,0 +1,160 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         
+    4 00000000         __Vectors
+    5 00000000         
+    6 00000000 10001000        DCD              0X10001000
+    7 00000004 00000000        DCD              Reset_Handler
+    8 00000008                 ALIGN
+    9 00000008                 AREA             mycode, CODE, READONLY
+   10 00000000                 ENTRY
+   11 00000000                 EXPORT           Reset_Handler
+   12 00000000         
+   13 00000000         Reset_Handler
+   14 00000000         
+   15 00000000 480C            LDR              R0,=N1
+   16 00000002 490D            LDR              R1,=DST
+   17 00000004 6802            LDR              R2,[R0]
+   18 00000006 F04F 0301       MOV              R3,#1
+   19 0000000A F04F 040A       MOV              R4,#0xA
+   20 0000000E F04F 0500       MOV              R5,#0
+   21 00000012 F04F 070F       MOV              R7,#0xF
+   22 00000016 4616    up      MOV              R6,R2
+   23 00000018 EA06 0607       AND              R6,R7
+   24 0000001C FB06 5503       MLA              R5,R6,R3,R5
+   25 00000020 FB03 F304       MUL              R3,R4
+   26 00000024 EA4F 1212       LSR              R2,#4
+   27 00000028 2A00            CMP              R2,#0
+   28 0000002A D1F4            BNE              up
+   29 0000002C 600D            STR              R5,[R1]
+   30 0000002E         
+   31 0000002E E7FE    STOP    B                STOP
+   32 00000030         
+   33 00000030 00000256 
+                       N1      DCD              0x256
+   34 00000034 00000000 
+              00000000         AREA             mydata, DATA, READWRITE
+   35 00000000 00000000 
+                       DST     DCD              0
+   36 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\q1.d -
+o.\q1.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NX
+P\LPC17xx --predefine="__EVAL SETA 1" --list=.\q1.lst C:\Users\Student.PRG-19.0
+00\Desktop\210905232\week4\q1.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1.
+s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 4 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1.
+s
+   Uses
+      At line 2 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1.
+s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+N1 00000030
+
+Symbol: N1
+   Definitions
+      At line 33 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1
+.s
+   Uses
+      At line 15 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1
+.s
+Comment: N1 used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 13 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1
+.s
+   Uses
+      At line 7 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1.
+s
+      At line 11 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1
+.s
+
+STOP 0000002E
+
+Symbol: STOP
+   Definitions
+      At line 31 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1
+.s
+   Uses
+      At line 31 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1
+.s
+Comment: STOP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 9 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1.
+s
+   Uses
+      None
+Comment: mycode unused
+up 00000016
+
+Symbol: up
+   Definitions
+      At line 22 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1
+.s
+   Uses
+      At line 28 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1
+.s
+Comment: up used once
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 35 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1
+.s
+   Uses
+      At line 16 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1
+.s
+Comment: DST used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 34 in file C:\Users\Student.PRG-19.000\Desktop\210905232\week4\q1
+.s
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+342 symbols in table
