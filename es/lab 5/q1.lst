@@ -1,0 +1,261 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET,DATA,READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         
+    4 00000000         __Vectors
+    5 00000000         
+    6 00000000 10001000        DCD              0x10001000
+    7 00000004 00000000        DCD              Reset_Handler
+    8 00000008                 ALIGN
+    9 00000008                 AREA             mycode,CODE,READONLY
+   10 00000000                 ENTRY
+   11 00000000                 EXPORT           Reset_Handler
+   12 00000000         
+   13 00000000         Reset_Handler
+   14 00000000         
+   15 00000000 4824            LDR              r0, =SRC    ;r0 is pointer to i
+                                                            th element
+   16 00000002 4925            LDR              r1, =N1
+   17 00000004 680A            LDR              r2,[r1]     ;r2 stores number o
+                                                            f elements
+   18 00000006 4F25            LDR              r7, =DST
+   19 00000008 F04F 0800       MOV              r8,#0
+   20 0000000C 4590    up      CMP              r8,r2
+   21 0000000E D006            BEQ              out
+   22 00000010 F108 0801       ADD              r8,#1
+   23 00000014 F850 9B04       LDR              r9,[r0],#4
+   24 00000018 F847 9B04       STR              r9,[r7],#4
+   25 0000001C E7F6            B                up
+   26 0000001E 481F    out     LDR              r0,=DST
+   27 00000020 4601            MOV              r1, r0      ;r1 is pointer to e
+                                                            lement to swap
+   28 00000022 4603            MOV              r3,r0       ;r3 is pointer to j
+                                                            th element
+   29 00000024 F04F 0A00       MOV              r10,#0      ;r10 is counter for
+                                                             inner(j) loop
+   30 00000028 F04F 0B00       MOV              r11,#0      ;r11 is counter for
+                                                             outer(i) loop
+   31 0000002C 4593    loop1   CMP              r11, r2     ;comparing i<10
+   32 0000002E D019            BEQ              exit
+   33 00000030 F100 0304       ADD              r3,r0,#4    ;sets jth pointer t
+                                                            o A[i+1]
+   34 00000034 4601            MOV              r1,r0       ;sets swap element 
+                                                            to A[i]
+   35 00000036 F10B 0A01       ADD              r10,r11,#1  ;j=i+1
+   36 0000003A 4592    loop2   CMP              r10,r2      ;j<10
+   37 0000003C D00A            BEQ              oif
+   38 0000003E F10A 0A01       ADD              r10,#1      ;j++
+   39 00000042 F853 4B04       LDR              r4,[r3],#4
+   40 00000046 680D            LDR              r5,[r1]
+   41 00000048 42A5            CMP              r5,r4
+   42 0000004A DBF6            BLT              loop2
+   43 0000004C 4619            MOV              r1,r3
+   44 0000004E F1A1 0104       SUB              r1,#4
+   45 00000052 E7F2            B                loop2
+   46 00000054 F10B 0B01 
+                       oif     ADD              r11,#1
+   47 00000058 6804            LDR              r4,[r0]
+   48 0000005A 680D            LDR              r5,[r1]
+   49 0000005C 600C            STR              r4,[r1]
+   50 0000005E F840 5B04       STR              r5,[r0],#4
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   51 00000062 E7E3            B                loop1
+   52 00000064         exit
+   53 00000064         
+   54 00000064         STOP
+   55 00000064 E7FE            B                STOP
+   56 00000066         
+   57 00000066 00 00 0000000A 
+                       N1      DCD              0xA
+   58 0000006C 00000036 
+              00000069 
+              00000015 
+              00000023 
+              00000035 
+              00000045 
+              00000086 
+              00000054 
+              00000033 
+              00000013 SRC     DCD              0x36,0x69,0x15,0x23,0x35,0x45,0
+x86,0x54,0x33,0x13
+   59 00000094         
+   60 00000094 00000000 
+              00000000 
+              00000000 
+              00000000         AREA             mydata,DATA,READWRITE
+   61 00000000         
+   62 00000000 00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 DST     DCD              0,0,0,0,0,0,0,0,0,0
+   63 00000028                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\q1.d -
+o.\q1.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NX
+P\LPC17xx --predefine="__EVAL SETA 1" --list=.\q1.lst q1.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file q1.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 4 in file q1.s
+   Uses
+      At line 2 in file q1.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+N1 00000068
+
+Symbol: N1
+   Definitions
+      At line 57 in file q1.s
+   Uses
+      At line 16 in file q1.s
+Comment: N1 used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 13 in file q1.s
+   Uses
+      At line 7 in file q1.s
+      At line 11 in file q1.s
+
+SRC 0000006C
+
+Symbol: SRC
+   Definitions
+      At line 58 in file q1.s
+   Uses
+      At line 15 in file q1.s
+Comment: SRC used once
+STOP 00000064
+
+Symbol: STOP
+   Definitions
+      At line 54 in file q1.s
+   Uses
+      At line 55 in file q1.s
+Comment: STOP used once
+exit 00000064
+
+Symbol: exit
+   Definitions
+      At line 52 in file q1.s
+   Uses
+      At line 32 in file q1.s
+Comment: exit used once
+loop1 0000002C
+
+Symbol: loop1
+   Definitions
+      At line 31 in file q1.s
+   Uses
+      At line 51 in file q1.s
+Comment: loop1 used once
+loop2 0000003A
+
+Symbol: loop2
+   Definitions
+      At line 36 in file q1.s
+   Uses
+      At line 42 in file q1.s
+      At line 45 in file q1.s
+
+mycode 00000000
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+
+Symbol: mycode
+   Definitions
+      At line 9 in file q1.s
+   Uses
+      None
+Comment: mycode unused
+oif 00000054
+
+Symbol: oif
+   Definitions
+      At line 46 in file q1.s
+   Uses
+      At line 37 in file q1.s
+Comment: oif used once
+out 0000001E
+
+Symbol: out
+   Definitions
+      At line 26 in file q1.s
+   Uses
+      At line 21 in file q1.s
+Comment: out used once
+up 0000000C
+
+Symbol: up
+   Definitions
+      At line 20 in file q1.s
+   Uses
+      At line 25 in file q1.s
+Comment: up used once
+11 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 62 in file q1.s
+   Uses
+      At line 18 in file q1.s
+      At line 26 in file q1.s
+
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 60 in file q1.s
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+348 symbols in table
