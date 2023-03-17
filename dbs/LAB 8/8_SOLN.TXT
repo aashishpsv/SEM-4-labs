@@ -1,0 +1,222 @@
+
+SQL> SET SERVEROUTPUT ON
+SQL> declare
+  2  message varchar2(20):='Hello, World!';
+  3  begin
+  4  dbms_output.put_line(message);
+  5  end;
+  6  /
+Hello, World!
+
+
+
+
+SQL> CREATE TABLE STUDENTTABLE(
+  2  ROLLNO NUMERIC(10),
+  3  GPA NUMERIC(3,2));
+
+Table created.
+
+ INSERT INTO STUDENTTABLE VALUES(1,5.8);
+
+
+
+q1)
+SQL> DECLARE
+         grade NUMERIC(1);
+         VALUE NUMERIC(3,2);
+  BEGIN
+         GRADE :='&g' ;
+         select gpa into value  from studenttable where rollno=grade;
+         dbms_output.put_line('gpa is ' || to_char(value));
+  END;
+   /
+
+
+
+q2)
+sample: DECLARE
+      grade char(1);
+   BEGIN
+       grade :='&g';
+    if grade = 'a' then
+       dbms_output.put_line('a grade');
+    elsif grade = 'b' then
+     dbms_output.put_line('b grade');
+    else
+     dbms_output.put_line('c grade');
+   end if;
+   END;
+  /
+
+
+ DECLARE
+              RNO STUDENTTABLE.ROLLNO%TYPE;
+             GP STUDENTTABLE.GPA%TYPE;
+              GRADE CHAR(5);
+        BEGIN
+               RNO := '&R';
+               SELECT GPA INTO GP FROM STUDENTTABLE WHERE ROLLNO=RNO;
+              IF (GP > 0) AND (GP < 4)  THEN
+                                DBMS_OUTPUT.PUT_LINE('F');
+             ELSIF (GP > 4) AND (GP < 5)  THEN
+                                DBMS_OUTPUT.PUT_LINE('E');
+              ELSIF (GP > 5) AND (GP < 6)  THEN
+                                DBMS_OUTPUT.PUT_LINE('D');
+               ELSIF (GP > 6) AND (GP < 7)  THEN
+                                DBMS_OUTPUT.PUT_LINE('C');
+              ELSIF (GP > 7) AND (GP < 8)  THEN
+                                DBMS_OUTPUT.PUT_LINE('B');
+             ELSIF (GP > 8) AND (GP < 9)   THEN
+                                DBMS_OUTPUT.PUT_LINE('A');
+          ELSIF (GP > 9) AND (GP < 10)  THEN
+                                DBMS_OUTPUT.PUT_LINE('A+');
+           ELSE
+                                DBMS_OUTPUT.PUT_LINE('WRONG INPUT');
+          END IF;
+      END;
+   /
+Enter value for r: 2
+old   6:            RNO := '&R';
+new   6:            RNO := '2';
+C
+
+
+
+Q3)DECLARE
+	in_date date;
+	out_date date;
+	diff number(10);
+	penalty number(10);
+BEGIN
+	in_date:='&d';
+	out_date:='&f';
+	
+	diff := TO_DATE(out_date,'dd/mm/yy')-TO_DATE(in_date,'dd/mm/yy'); 
+		DBMS_OUTPUT.PUT_LINE(diff);
+	IF diff between 0 and 7 then
+		penalty := 0;
+		DBMS_OUTPUT.PUT_LINE('NIL');
+	ELSIF diff between 8 and 15 then
+		penalty:=(diff-7)*0+(diff-8)*1;
+		
+	ELSIF diff between 16 and 30 then
+		penalty:=(diff-7)*0+(diff-8)*1+(diff-15)*2;
+		
+	ELSE
+		penalty:=(diff-7)*0+(diff-8)*1+(diff-15)*2+(diff-30)*5;
+	END IF;	
+                   DBMS_OUTPUT.PUT_LINE(' PENALITY TO PAY IS' ||  TO_CHAR(penalty));				
+END;
+
+
+Q4)
+DECLARE
+              RNO STUDENTTABLE.ROLLNO%TYPE;
+             GP STUDENTTABLE.GPA%TYPE;
+              GRADE CHAR(5);
+BEGIN
+           FOR  I IN 1..5 LOOP
+               RNO :=  I;
+               SELECT GPA INTO GP FROM STUDENTTABLE WHERE ROLLNO=RNO;
+              IF (GP > 0) AND (GP < 4)  THEN
+                                DBMS_OUTPUT.PUT_LINE('F');
+             ELSIF (GP > 4) AND (GP < 5)  THEN
+                                DBMS_OUTPUT.PUT_LINE('E');
+              ELSIF (GP > 5) AND (GP < 6)  THEN
+                                DBMS_OUTPUT.PUT_LINE('D');
+               ELSIF (GP > 6) AND (GP < 7)  THEN
+                                DBMS_OUTPUT.PUT_LINE('C');
+              ELSIF (GP > 7) AND (GP < 8)  THEN
+                                DBMS_OUTPUT.PUT_LINE('B');
+             ELSIF (GP > 8) AND (GP < 9)   THEN
+                                DBMS_OUTPUT.PUT_LINE('A');
+          ELSIF (GP > 9) AND (GP < 10)  THEN
+                                DBMS_OUTPUT.PUT_LINE('A+');
+           ELSE
+                                DBMS_OUTPUT.PUT_LINE('WRONG INPUT');
+          END IF;
+        END LOOP;
+      END;
+   /
+
+Q 5)
+
+
+SQL> ALTER TABLE STUDENTTABLE
+  2  ADD LETTERGRADE VARCHAR2(2);
+
+Table altered.
+
+DECLARE
+              RNO STUDENTTABLE.ROLLNO%TYPE;
+             GP STUDENTTABLE.GPA%TYPE;
+              GRADE CHAR(5);
+BEGIN
+           WHILE  RNO<6  LOOP
+               SELECT GPA,LETTERGRADE
+ GPA INTO GP FROM STUDENTTABLE
+ WHERE ROLLNO=RNO;
+              IF (GP > 0) AND (GP < 4)  THEN
+                                UPDATE  STUDENTTABLE 
+                                SET LETTERGRADE  = 'F' ;
+             ELSIF (GP > 4) AND (GP < 5)  THEN
+                               INSERT INTO STUDENTTABLE(LETTERGRADE) VALUES ('E');
+              ELSIF (GP > 5) AND (GP < 6)  THEN
+                               INSERT INTO STUDENTTABLE(LETTERGRADE) VALUES ('D');
+               ELSIF (GP > 6) AND (GP < 7)  THEN
+                               INSERT INTO STUDENTTABLE(LETTERGRADE) VALUES ('C');
+              ELSIF (GP > 7) AND (GP < 8)  THEN
+                               INSERT INTO STUDENTTABLE(LETTERGRADE) VALUES ('B');
+             ELSIF (GP > 8) AND (GP < 9)   THEN
+                              INSERT INTO STUDENTTABLE(LETTERGRADE) VALUES ('A');
+          ELSIF (GP > 9) AND (GP < 10)  THEN
+                               INSERT INTO STUDENTTABLE(LETTERGRADE) VALUES ('A+');
+           ELSE
+                                DBMS_OUTPUT.PUT_LINE('WRONG INPUT');
+          END IF;
+        END LOOP;
+      END;
+   /
+
+
+Q 6)
+DECLARE
+              RNO STUDENTTABLE.ROLLNO%TYPE;
+             GP STUDENTTABLE.GPA%TYPE;
+              GRADE CHAR(5);
+BEGIN
+           WHILE  RNO<6  LOOP
+               SELECT GPA,LETTERGRADE
+ GPA INTO GP FROM STUDENTTABLE
+ WHERE ROLLNO=RNO;
+              IF (GP > 0) AND (GP < 4)  THEN
+                                UPDATE  STUDENTTABLE 
+                                SET LETTERGRADE  = 'F' ;
+             ELSIF (GP > 4) AND (GP < 5)  THEN
+                               INSERT INTO STUDENTTABLE(LETTERGRADE) VALUES ('E');
+              ELSIF (GP > 5) AND (GP < 6)  THEN
+                               INSERT INTO STUDENTTABLE(LETTERGRADE) VALUES ('D');
+               ELSIF (GP > 6) AND (GP < 7)  THEN
+                               INSERT INTO STUDENTTABLE(LETTERGRADE) VALUES ('C');
+              ELSIF (GP > 7) AND (GP < 8)  THEN
+                               INSERT INTO STUDENTTABLE(LETTERGRADE) VALUES ('B');
+             ELSIF (GP > 8) AND (GP < 9)   THEN
+                              INSERT INTO STUDENTTABLE(LETTERGRADE) VALUES ('A');
+          ELSIF (GP > 9) AND (GP < 10)  THEN
+                               INSERT INTO STUDENTTABLE(LETTERGRADE) VALUES ('A+');
+           ELSE
+                                DBMS_OUTPUT.PUT_LINE('WRONG INPUT');
+          END IF;
+        END LOOP;
+      END;
+   /
+
+
+
+
+
+
+
+
+
