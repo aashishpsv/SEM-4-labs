@@ -1,0 +1,203 @@
+q1)
+
+SQL> set serveroutput on
+SQL> create or replace procedure q1 is
+  2  begin
+  3  dbms_output.put_line('GOOD DAY TO YOU');
+  4  END;
+  5  /
+
+Procedure created.
+
+SQL> begin
+  2  q1;
+  3  end;
+  4  /
+GOOD DAY TO YOU
+
+PL/SQL procedure successfully completed.
+
+q2)
+ create or replace procedure q2(deptname varchar) is
+ cursor c1 is select * from course where dept_name=deptname;
+ cursor c2 is select * from instructor where dept_name=deptname;
+ begin
+ dbms_output.put_line('instructors');
+  for inst in c2 loop
+ dbms_output.put_line(inst.name);
+  end loop;
+ dbms_output.put_line('courses');
+ for cou in c1 loop
+dbms_output.put_line(cou.title);
+end loop;
+end;
+/
+
+o/p:
+SQL> begin
+  2  q2('Biology');
+  3  end;
+  4  /
+instructors
+Crick
+courses
+Intro. to Biology
+Genetics
+Computational Biology
+
+
+
+q4)
+create or replace procedure q4(deptname varchar) is
+ cursor c1 is select * from course where dept_name=deptname;
+ cursor c2 is select * from student where dept_name=deptname;
+ begin
+ dbms_output.put_line('students');
+  for stu in c2 loop
+ dbms_output.put_line(stu.id);
+  end loop;
+ dbms_output.put_line('courses');
+ for cou in c1 loop
+dbms_output.put_line(cou.title);
+end loop;
+end;
+/
+
+o/p:
+SQL> begin
+  2  q4('Biology');
+  3  end;
+  4  /
+students
+98988
+courses
+Intro. to Biology
+Genetics
+Computational Biology
+
+
+q5)
+
+SQL> create or replace function q5(a number)
+  2  return number as
+  3  sqr number;
+  4  begin
+  5    sqr := a * a;
+  6  return sqr;
+  7  end;
+  8  /
+
+Function created.
+
+SQL> set serveroutput on;
+SQL> declare
+  2  begin
+  3  dbms_output.put_line(q5(9));
+  4  end;
+  5  /
+81
+
+PL/SQL procedure successfully completed.
+
+
+q3)
+
+SQL> CREATE OR REPLACE PROCEDURE course_popular IS
+  2  CURSOR cursepop IS
+  3  WITH studentenroll as (select course_id,count(distinct ID) as student_count from takes group by course_id),
+  4  studenmod as (select course_id,student_count,dept_name from studentenroll natural join course),
+  5  deptmax as (select max(student_count) as dept_high,dept_name from course natural join studenmod group by dept_name)
+  6  select dept_high,course_id,dept_name from studenmod natural join deptmax where student_count=dept_high;
+  7  BEGIN
+  8      FOR row IN cursepop LOOP
+  9          dbms_output.put_line('Department name : '||row.dept_name);
+ 10          dbms_output.put_line(' Course ID : ' || row.course_id);
+ 11          dbms_output.put_line('Number of student enrolled : '||row.dept_high);
+ 12          dbms_output.put_line('---------------------------------------------------');
+ 13      END LOOP;
+ 14  END;
+ 15  /
+
+Procedure created.
+
+SQL> DECLARE
+  2  begin
+  3      dbms_output.put_line('----- ALL DEPARTMENTS HIGHEST ENROLLED COURSES ------');
+  4      course_popular;
+  5  end;
+  6  /
+----- ALL DEPARTMENTS HIGHEST ENROLLED COURSES ------
+Department name : Comp. Sci.
+Course ID : CS-101
+Number of student enrolled : 6
+---------------------------------------------------
+Department name : Biology
+Course ID : BIO-101
+Number of student enrolled : 1
+---------------------------------------------------
+Department name : Biology
+Course ID : BIO-301
+Number of student enrolled : 1
+---------------------------------------------------
+Department name : History
+Course ID : HIS-351
+Number of student enrolled : 1
+---------------------------------------------------
+Department name : Elec. Eng.
+Course ID : EE-181
+Number of student enrolled : 1
+---------------------------------------------------
+Department name : Finance
+Course ID : FIN-201
+Number of student enrolled : 1
+---------------------------------------------------
+Department name : Music
+Course ID : MU-199
+Number of student enrolled : 1
+---------------------------------------------------
+Department name : Physics
+Course ID : PHY-101
+Number of student enrolled : 1
+---------------------------------------------------
+
+PL/SQL procedure successfully completed.
+
+
+
+
+q6)
+SQL> CREATE OR REPLACE FUNCTION department_highest (dName Department.dept_name%type)
+  2  RETURN Instructor.salary%type as
+  3  pop Instructor.salary%type;
+  4  begin
+  5      select max(salary) into pop
+  6      from Instructor group by Instructor.dept_name having Instructor.dept_name in (select dept_name
+  7                                                                                    from Instructor
+  8                                                                                    where dept_name = dName);
+  9      return pop;
+ 10  end;
+ 11  /
+
+Function created.
+
+SQL> DECLARE
+  2      maxs Instructor.salary%type;
+  3      cursor c1 is select distinct dept_name from department;
+  4  begin
+  5      for dn in c1 loop
+  6          maxs := department_highest(dn.dept_name);
+  7          dbms_output.put_line('Highest paid salary in '||dn.dept_name||' is : ' || maxs);
+  8      end loop;
+  9  end;
+ 10  /
+Highest paid salary in Biology is : 72000
+Highest paid salary in Comp. Sci. is : 92000
+Highest paid salary in Elec. Eng. is : 80000
+Highest paid salary in Finance is : 90000
+Highest paid salary in History is : 62000
+Highest paid salary in Music is : 40000
+Highest paid salary in Physics is : 95000
+
+PL/SQL procedure successfully completed.
+
+
