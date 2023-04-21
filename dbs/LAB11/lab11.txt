@@ -1,0 +1,202 @@
+q1)
+
+SQL> CREATE TABLE log_change_Takes(
+  2      Time_Of_Change DATE,
+  3      ID VARCHAR(5),
+  4      course_id VARCHAR(8),
+  5      sec_id VARCHAR(8),
+  6      semester VARCHAR(6),
+  7      year NUMERIC(4,0),
+  8      grade VARCHAR(2),
+  9      PRIMARY KEY (ID, course_id, sec_id, semester, year));
+
+Table created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> CREATE or REPLACE trigger log_change_Takes
+  2  BEFORE INSERT OR UPDATE
+  3  OR DELETE on takes
+  4  FOR EACH ROW
+  5  begin
+  6      case
+  7          WHEN INSERTING THEN
+  8          insert into log_change_Takes values (current_date,:NEW.id,:NEW.course_id,:NEW.sec_id,:NEW.semester,:NEW.year,:NEW.grade);
+  9          WHEN DELETING THEN
+ 10          insert into log_change_Takes values (current_date,:OLD.id,:OLD.course_id,:OLD.sec_id,:OLD.semester,:OLD.year,:OLD.grade);
+ 11          WHEN UPDATING THEN
+ 12          insert into log_change_Takes values (current_date,:NEW.id,:NEW.course_id,:NEW.sec_id,:NEW.semester,:NEW.year,:NEW.grade);
+ 13      end case;
+ 14  end;
+ 15  /
+
+Trigger created.
+
+SQL> SELECT * FROM takes WHERE ID = 54321 AND sec_id = 2;
+
+ID    COURSE_I SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+54321 CS-190   2        Spring       2009 B+
+
+SQL> UPDATE takes SET sec_id = 1 WHERE ID = 54321 AND sec_id = 2;
+
+1 row updated.
+
+SQL> SELECT * FROM takes WHERE ID = 54321 AND sec_id = 1;
+
+ID    COURSE_I SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+54321 CS-101   1        Fall         2009 A-
+54321 CS-190   1        Spring       2009 B+
+
+SQL> SELECT * FROM log_change_Takes;
+
+TIME_OF_C ID    COURSE_I SEC_ID   SEMEST       YEAR GR
+--------- ----- -------- -------- ------ ---------- --
+21-APR-23 54321 CS-190   1        Spring       2009 B+
+
+ 
+
+2)
+
+SQL> CREATE TABLE Old_Data_Inst (
+  2      ID VARCHAR(5),
+  3      name VARCHAR(20),
+  4      dept_name VARCHAR(20),
+  5      salary NUMERIC(8,2),
+  6      PRIMARY KEY (ID));
+
+Table created.
+     
+SQL> create or replace trigger old_data_inst
+  2  Before update on instructor
+  3  for each row
+  4  begin
+  5      insert into old_data_inst values (:old.id,:old.name,:old.dept_name,:old.salary);
+  6  end;
+  7  /
+
+Trigger created.
+
+SQL> update instructor set salary = 91000 where name = 'Wu';
+
+1 row updated.
+
+SQL> select * from old_data_inst;
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+12121 Wu                   Finance                   91000
+
+ 
+
+4)
+
+SQL> CREATE TABLE Client_master (
+  2      client_no NUMBER,
+  3      name VARCHAR(20),
+  4      address VARCHAR(50),
+  5      bal_due NUMBER,
+  6      PRIMARY KEY (client_no));
+
+Table created.
+
+SQL> INSERT INTO Client_master VALUES (1,'Client1','Addr1',20000);
+
+1 row created.
+
+SQL> INSERT INTO Client_master VALUES (2,'Client2','Addr2',10000);
+
+1 row created.
+
+SQL> INSERT INTO Client_master VALUES (3,'Client3','Addr3',50000);
+
+1 row created.
+
+SQL> INSERT INTO Client_master VALUES (4,'Client4','Addr4',80000);
+
+1 row created.
+
+SQL> CREATE TABLE auditclient (
+  2      client_no NUMBER,
+  3      name VARCHAR(20),
+  4      bal_due NUMBER,
+  5      operation VARCHAR(20),
+  6      userid NUMBER,
+  7      opdate DATE);
+
+Table created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> CREATE OR REPLACE TRIGGER auditLog
+  2  BEFORE UPDATE OF bal_due OR DELETE ON Client_master
+  3  for each row
+  4  BEGIN
+  5  CASE
+  6  WHEN UPDATING THEN
+  7      INSERT INTO auditClient VALUES (:OLD.client_no, :OLD.name, :OLD.bal_due, 'Update', 1440, SYSDATE);
+  8  WHEN DELETING THEN
+  9      INSERT INTO auditClient VALUES (:OLD.client_no, :OLD.name, :OLD.bal_due, 'Delete', 1440, SYSDATE);
+ 10  END CASE;
+ 11  END;
+ 12  /
+
+Trigger created.
+
+SQL> SELECT * FROM Client_master;
+
+ CLIENT_NO NAME
+---------- --------------------
+ADDRESS                                               BAL_DUE
+-------------------------------------------------- ----------
+         1 Client1
+Addr1                                                   20000
+
+         2 Client2
+Addr2                                                   10000
+
+         3 Client3
+Addr3                                                   50000
+
+
+ CLIENT_NO NAME
+---------- --------------------
+ADDRESS                                               BAL_DUE
+-------------------------------------------------- ----------
+         4 Client4
+Addr4                                                   80000
+
+
+SQL>
+SQL> UPDATE Client_master SET bal_due = 10000 WHERE client_no = 1;
+
+1 row updated.
+
+SQL>
+SQL> DELETE FROM Client_master WHERE client_no = 2;
+
+1 row deleted.
+
+SQL>
+SQL> SELECT * FROM auditClient;
+
+ CLIENT_NO NAME                    BAL_DUE OPERATION                USERID
+---------- -------------------- ---------- -------------------- ----------
+OPDATE
+---------
+         1 Client1                   20000 Update                     1440
+21-APR-23
+
+         2 Client2                   10000 Delete                     1440
+21-APR-23
+
+
+SQL>
+SQL> ROLLBACK;
+
+Rollback complete.
