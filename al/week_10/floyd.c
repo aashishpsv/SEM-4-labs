@@ -38,7 +38,7 @@
     	}
     	floyds(p,n);
         
-        printf("\n Matrix of input data:\n");
+        printf("\n Matrix of ouput data:\n");
         for (i=1;i<=n;i++) {
             for (j=1;j<=n;j++)
                printf("%d \t",p[i][j]);
